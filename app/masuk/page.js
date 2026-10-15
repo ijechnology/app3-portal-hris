@@ -105,8 +105,20 @@ function IsiHalamanMasuk() {
 
   const tautanDaftar = kembali ? `/daftar?kembali=${encodeURIComponent(kembali)}` : "/daftar";
 
+  const decodedKembali = kembali ? decodeURIComponent(kembali) : "";
+  const dialihkanDariCuti = decodedKembali.startsWith("/cuti");
+
   return (
     <KerangkaPublik judul="Masuk">
+      {dialihkanDariCuti && (
+        <div
+          role="status"
+          className="mb-5 rounded-xl border border-menunggu bg-menunggu/15 p-3 text-sm font-bold text-tinta"
+        >
+          Sesi login belum ada atau telah habis. Silakan masuk terlebih dahulu untuk melihat status cutimu.
+        </div>
+      )}
+
       <form onSubmit={kirim} noValidate className="space-y-4">
         <div>
           <label htmlFor="email" className="label">Email</label>
